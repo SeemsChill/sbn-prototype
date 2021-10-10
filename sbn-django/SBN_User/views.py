@@ -1,32 +1,31 @@
 # Import AUTh modules.
-from django.http import response
 from django.utils.decorators import method_decorator
-from django.middleware.csrf import get_token
-from django.views.decorators.csrf import csrf_protect, csrf_exempt
+from django.views.decorators.csrf import csrf_exempt
 # Import REST framework.
-from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
-from rest_framework.response import Response
 # Import models.
 from .models import UserAuth, UserInfo, UserPlatform
 # Import plugins.
-from .plugins.data_plugins import register_package
+from .plugins.data_plugins import register_package, login_package
 from .plugins.response_plugin import handcraft_res
+# Import JWT plugins.
+from SBN_Auth.plugins.auth_plugins import generate_jwt, verify_jwt
 # Import system.
-import os
+from uuid import uuid4
 # Create your views here.
 
 
-@method_decorator(csrf_exempt, name='dispatch')
+# @method_decorator(csrf_exempt, name='dispatch')
 class SBN_User_API_GET_Routes(APIView):  # get dashboard api middleware.
-    permission_classes = [AllowAny]
+    #permission_classes = [AllowAny]
 
     def get(self, *args, **kwargs):
         try:
             api_routes = {
                 "Register (create)": "api/post/register/create/user/",
                 "Register (update)": "api/post/register/update/user/",
-                "Delete": "api/delete/user/"
+                "Login (update)": "api/post/login/",
+                "Delete": "api/post/delete/user/"
             }
             return handcraft_res(200, api_routes)
         except Exception as error:
@@ -36,21 +35,26 @@ class SBN_User_API_GET_Routes(APIView):  # get dashboard api middleware.
 @method_decorator(csrf_exempt, name="dispatch")
 # post register/create user.
 class SBN_User_API_POST_Register_Create_User(APIView):
-    permission_classes = [AllowAny]
+    #permission_classes = [AllowAny]
 
     def post(self, request, *args, **kwargs):
+
+        # bundle = json.loads(request.body.decode("utf-8"))
+        uuid = uuid4().hex
         try:
             get_platform, package = register_package(request.data)
+            if UserInfo.objects.filter(email=package["email"]).exists():
+                return handcraft_res(400, "Email is invalid or already taken.")
             platform = UserPlatform.objects.get(pk=get_platform)
             UserInfo(
-                uid=package["uid"],
+                uid=uuid,
                 username=package["username"],
                 email=package["email"],
                 platform=platform,
             ).save()
             if get_platform == 1:
                 uid = UserInfo.objects.get(
-                    uid=package["uid"]
+                    uid=uuid
                 )
                 UserAuth(
                     uid=uid,
@@ -58,27 +62,24 @@ class SBN_User_API_POST_Register_Create_User(APIView):
                     email=package["email"],
                     password=package["password"],
                 ).save()
-            return handcraft_res(201, package["username"])
+            token = generate_jwt(uuid)
+            return handcraft_res(201, {"success": "{} has been created!".format(package["username"]), "token": "{}".format(token), "uid": "{}".format(uuid)})
         except Exception as error:
-            if "UNIQUE" in error:
-                return handcraft_res(400, error)
-            else:
-                if UserInfo.objects.filter(uid=package["uid"]).exists():
-                    UserInfo.objects.filter(uid=package["uid"]).delete()
-                if UserAuth.objects.filter(uid=package["uid"]).exists():
-                    UserAuth.objects.filter(uid=package["uid"]).exists()
-                return handcraft_res(400, error)
+            if UserInfo.objects.filter(uid=uuid).exists():
+                UserInfo.objects.filter(uid=uuid).delete()
+            if UserAuth.objects.filter(uid=uuid).exists():
+                UserAuth.objects.filter(uid=uuid).exists()
+            return handcraft_res(400, error)
 
 
 @method_decorator(csrf_exempt, name="dispatch")
 # update the user's info after registering.
 class SBN_User_API_POST_Register_Update_User(APIView):
-    permission_classes = [AllowAny]
 
     def post(self, request, *args, **kwargs):
         type = register_package(request.data)
         if type == False:
-            return handcraft_res(406, "There's something wrong with your request package!")
+            return handcraft_res(406, "There's something wrong with your request package.")
         else:
             try:
                 if UserInfo.objects.filter(uid=request.data["uid"]).exists():
@@ -98,19 +99,44 @@ class SBN_User_API_POST_Register_Update_User(APIView):
                 return handcraft_res(401, error)
 
 
+@method_decorator(csrf_exempt, name="dispatch")
+# login platform.
+class SBN_User_API_POST_Login(APIView):
+
+    def post(self, request, *args, **kwargs):
+        bundle = login_package(request.data)
+        try:
+            if UserInfo.objects.filter(email=bundle["email"]).exists() and UserAuth.objects.filter(password=bundle["password"]).exists():
+                auth_uid = UserInfo.objects.get(email=bundle["email"]).uid
+                auth_username = UserInfo.objects.get(
+                    email=bundle["email"]).username
+                token = generate_jwt(auth_uid)
+                return handcraft_res(202, {"success": "Welcome back! {}".format(auth_username), "token": "{}".format(token), "uid": "{}".format(auth_uid)})
+            else:
+                return handcraft_res(401, "Incorrect email or password.")
+        except Exception as error:
+            return handcraft_res(401, error)
+
 # Ideal: The next ideal about delete api.
 # - When the user click on delete account button.
 # the browser shows a form which request the user
 # to enter the password. If password matches, delete the account.
+
+
 @method_decorator(csrf_exempt, name="dispatch")
 class SBN_User_API_DELETE_Specific_User(APIView):
-    permission_classes = [AllowAny]
 
-    def delete(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         try:
-            if UserInfo.objects.filter(uid=request.data["uid"]).exists():
-                # Ideal: get the name of the user and pass to the response.
-                UserInfo.objects.filter(uid=request.data["uid"]).delete()
-                return handcraft_res(202, "Delete")
+            bundle = verify_jwt(request.headers["Authorization"])
+            if UserInfo.objects.filter(uid=bundle["uid"]).exists():
+                auth_pass = UserAuth.objects.get(uid=bundle["uid"]).password
+                auth_username = UserInfo.objects.get(
+                    uid=bundle["uid"]).username
+                if auth_pass == request.data["password"]:
+                    UserInfo.objects.filter(uid=bundle["uid"]).delete()
+                    return handcraft_res(202, {"success": "{} delete successfully.".format(auth_username)})
+                else:
+                    return handcraft_res(401, "Incorrect password.")
         except Exception as error:
             return handcraft_res(401, error)

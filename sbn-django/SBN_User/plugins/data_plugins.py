@@ -1,3 +1,5 @@
+from .response_plugin import handcraft_res
+
 def register_package(data):
     platforms = {"facebook": 2, "github": 3}
 
@@ -5,7 +7,7 @@ def register_package(data):
                          "second_dest", "third_dest", "detail_adr", "phone_number"]
 
     if "platform" in data:
-        platform = platforms.get(data["platform"], 1) 
+        platform = platforms.get(data["platform"], 1)
         return platform, data
     else:
         # Register update package is not empty and mistype.
@@ -16,3 +18,12 @@ def register_package(data):
             if val == "" or str(type(val)) == "<class 'int'>":
                 return False
         return True
+
+
+def login_package(data):
+    keys = ["email", "password"]
+
+    for item in keys:
+        if item not in data:
+            return handcraft_res(401, { "error": "Package unauthorized!" })
+        return data

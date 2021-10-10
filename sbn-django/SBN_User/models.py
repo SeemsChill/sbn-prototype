@@ -4,7 +4,6 @@ from phonenumber_field.modelfields import PhoneNumberField
 import os
 from uuid import uuid4
 
-
 @deconstructible
 class ImageAvatarPath(object):
     def __init__(self, sub_path):
@@ -235,48 +234,6 @@ class UserAuth(models.Model):  # User's Auth Table.
     class Meta:
         verbose_name = "user_auth."
         verbose_name_plural = "user_auths."
-
-    def __str__(self):
-        return str(self.uid)
-
-class Category(models.Model):
-    category = models.CharField(
-        # Attributes.
-        max_length=20,
-        unique=True,
-        # Details.
-        verbose_name="product_category.",
-        help_text="Following format: char(1 -> 20)."
-    )
-
-    def __str__(self):
-        return str(self.category)
-
-class Product(models.Model):
-    uid = models.ForeignKey(
-        # Connection.
-        UserInfo,
-        on_delete=models.CASCADE,
-        # Details.
-        verbose_name="owner_uid.",
-        help_text="Following format: char(1 -> 38).",
-    )
-    name = models.CharField(
-        # Attributes.
-        max_length=40,
-        # Details.
-        verbose_name="product_name.",
-        help_text="Following format: char(1 -> 40)."
-    )
-    category = models.ForeignKey(
-        # Connection.
-        Category,
-        # Details.
-        verbose_name="product_category.",
-        help_text="Following format: char(1 -> 38)."
-    )
-    
-
 
     def __str__(self):
         return str(self.uid)

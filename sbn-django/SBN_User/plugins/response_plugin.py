@@ -93,7 +93,6 @@ def handle_err(error):
     elif "Could not verify token signature." in error:
         return "Could not verify token signature!"
     else:
-        print(error)
         return error
 
 def handle_mes(status_code, dicts):

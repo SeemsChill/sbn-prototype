@@ -9,9 +9,9 @@ from SBN_User.models import UserAuth
 seret_key = "Saigon_By_Night"
 
 
-def generate_jwt(data):
+def generate_jwt(uid):
     jwt_token = "Bearer {}".format(jwt.encode(
-        {"uid": data["uid"], "exp": data["exp"]}, seret_key, algorithm="HS256"))
+        {"uid": uid, "exp": (int(time.time()) + 60*60)}, seret_key, algorithm="HS256"))
     return jwt_token
 
 

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'SBN_User.apps.SbnUserConfig',
     'SBN_Auth.apps.SbnAuthConfig',
+    'SBN_Product.apps.SbnProductConfig',
     'rest_framework',
     'corsheaders',
     'phonenumber_field'
@@ -49,7 +50,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -109,6 +110,10 @@ REST_FRAMEWORK = {
     )
 }
 
+DEFAULT_AUTHENTICATION_CLASSES = [
+    'rest_framework.authentication.SessionAuthentication',
+    'rest_framework.authentication.BasicAuthentication'
+]
 
 # Internationalization
 # https://docs.djangoproject.com/en/dev/topics/i18n/
