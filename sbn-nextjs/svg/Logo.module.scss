@@ -1,0 +1,21 @@
+@import "../styles/variables";
+
+.svg {
+    transition: transform 300ms ease-in-out;
+
+    &__light {
+        path {
+            fill: $black;
+        }
+    }
+
+    &__dark {
+        path {
+            fill: $light;
+        }
+    }
+
+    &:hover {
+        transform: scale(1.1);
+    }
+}

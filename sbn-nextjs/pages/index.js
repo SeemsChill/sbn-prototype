@@ -1,14 +1,104 @@
+//  Import built-in.
 import React, { useEffect, useState } from "react";
+
+//  Import other components.
+import Head from "../components/Header/Header";
+
+export default function Home() {
+  const [theme, setTheme] = useState("light");
+  console.log(theme);
+
+  return (
+    <>
+      <Head theme={theme} setTheme={setTheme} />
+    </>
+  )
+}
+
+/*
+{!uid ? (
+        <>
+          {success ? (<p>{success}</p>) : (<></>)}
+          {error ? (<p>{error}</p>) : (<></>)}
+          <h1>Register</h1>
+          <form onSubmit={handleSubmit(classicRegister)}>
+            <label>Username:</label>
+            <input placeholder="username" {...register("username_reg")} />
+            <br />
+            <label>Email:</label>
+            <input placeholder="email" {...register("email_reg")} />
+            <br />
+            <label>Password:</label>
+            <input type="password" placeholder="password" {...register("password_reg")} />
+            <br />
+            <input type="submit" value="Sign up" />
+          </form>
+          <br />
+          <h1>Log In</h1>
+          <form onSubmit={handleSubmit(classicLogin)}>
+            <label>Email:</label>
+            <input placeholder="email" {...register("email_log")} />
+            <br />
+            <label>Password:</label>
+            <input placeholder="password" {...register("password_log")} />
+            <br />
+            <input type="submit" value="Sign in" />
+          </form>
+          <br />
+        </>
+      ) : (
+        <>
+          {success ? (<p>{success}</p>) : (<></>)}
+          {error ? (<p>{error}</p>) : (<></>)}
+          <h1>Log out:</h1>
+          <button onClick={() => logOut()}>Log out</button>
+          <br />
+          <br />
+          <h1>Update</h1>
+          <form onSubmit={handleSubmit(updateInfo)}>
+            <label>Fullname: </label>
+            <input placeholder="full name" {...register("fullName_up")} />
+            <br />
+            <label>First destination: </label>
+            <input placeholder="vd: Tỉnh Tiền Giang" {...register("firstDest_up")} />
+            <br />
+            <label>Second destination: </label>
+            <input placeholder="vd: Thị xã Gò Công" {...register("secondDest_up")} />
+            <br />
+            <label>Third destination:</label>
+            <input placeholder="vd: Phường 3" {...register("thirdDest_up")} />
+            <br />
+            <label>Detail address: </label>
+            <textarea placeholder="vd: Khu phố 3, đường Trần Hưng Đạo" {...register("detailAdr_up")} />
+            <br />
+            <label>Phone number: </label>
+            <input placeholder="vd: +84865322376" {...register("phoneNumber_up")} />
+            <br />
+            <input type="submit" value="Update" />
+          </form>
+          <br />
+          <br />
+          <h1>Delete</h1>
+          <form onSubmit={handleSubmit(delUser)}>
+            <label>Password: </label>
+            <input type="password" placeholder="password" {...register("password_del")} />
+            <br />
+            <input type="submit" value="Delete" />
+          </form>
+        </>
+      )}
+*/
+
+
+/*
 
 import { useForm } from "react-hook-form";
 import { sha256 } from "js-sha256";
 
 import { del, signIn, signUp, verify } from "../utils/query";
+import ButtonHolder from "../components/Button/ButtonHolder";
 
-
-
-export default function Home() {
-  const [uid, setUid] = useState(null);
+const [uid, setUid] = useState(null);
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
 
@@ -108,80 +198,4 @@ export default function Home() {
       }
     }
   }, []);
-
-  return (
-    <>
-      {!uid ? (
-        <>
-          {success ? (<p>{success}</p>) : (<></>)}
-          {error ? (<p>{error}</p>) : (<></>)}
-          <h1>Register</h1>
-          <form onSubmit={handleSubmit(classicRegister)}>
-            <label>Username:</label>
-            <input placeholder="username" {...register("username_reg")} />
-            <br />
-            <label>Email:</label>
-            <input placeholder="email" {...register("email_reg")} />
-            <br />
-            <label>Password:</label>
-            <input type="password" placeholder="password" {...register("password_reg")} />
-            <br />
-            <input type="submit" value="Sign up" />
-          </form>
-          <br />
-          <h1>Log In</h1>
-          <form onSubmit={handleSubmit(classicLogin)}>
-            <label>Email:</label>
-            <input placeholder="email" {...register("email_log")} />
-            <br />
-            <label>Password:</label>
-            <input placeholder="password" {...register("password_log")} />
-            <br />
-            <input type="submit" value="Sign in" />
-          </form>
-          <br />
-        </>
-      ) : (
-        <>
-          {success ? (<p>{success}</p>) : (<></>)}
-          {error ? (<p>{error}</p>) : (<></>)}
-          <h1>Log out:</h1>
-          <button onClick={() => logOut()}>Log out</button>
-          <br />
-          <br />
-          <h1>Update</h1>
-          <form onSubmit={handleSubmit(updateInfo)}>
-            <label>Fullname: </label>
-            <input placeholder="full name" {...register("fullName_up")} />
-            <br />
-            <label>First destination: </label>
-            <input placeholder="vd: Tỉnh Tiền Giang" {...register("firstDest_up")} />
-            <br />
-            <label>Second destination: </label>
-            <input placeholder="vd: Thị xã Gò Công" {...register("secondDest_up")} />
-            <br />
-            <label>Third destination:</label>
-            <input placeholder="vd: Phường 3" {...register("thirdDest_up")} />
-            <br />
-            <label>Detail address: </label>
-            <textarea placeholder="vd: Khu phố 3, đường Trần Hưng Đạo" {...register("detailAdr_up")} />
-            <br />
-            <label>Phone number: </label>
-            <input placeholder="vd: +84865322376" {...register("phoneNumber_up")} />
-            <br />
-            <input type="submit" value="Update" />
-          </form>
-          <br />
-          <br />
-          <h1>Delete</h1>
-          <form onSubmit={handleSubmit(delUser)}>
-            <label>Password: </label>
-            <input type="password" placeholder="password" {...register("password_del")} />
-            <br />
-            <input type="submit" value="Delete" />
-          </form>
-        </>
-      )}
-    </>
-  )
-}
+*/
