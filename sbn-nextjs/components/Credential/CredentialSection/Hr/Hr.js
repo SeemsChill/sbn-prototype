@@ -1,4 +1,4 @@
-//  Import built-in.
+// Import built-in.
 import React from "react";
 
 
