@@ -22,7 +22,7 @@ const Section = () => {
 
   function signup() {
     signinRef.current.style.transform = 'translateX(-400%)';
-    signupRef.current.style.transform = 'translateX(287%)';
+    signupRef.current.style.transform = 'translateX(360%)';
     hrRef.current.style.transform = 'translateX(100px)';
     sgiRef.current.style.transform = 'scale(1)';
     sguRef.current.style.transform = 'scale(1.2)';
