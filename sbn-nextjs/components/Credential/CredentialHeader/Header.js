@@ -11,11 +11,11 @@ import styles from "./Header.module.scss";
 import Logo from "../../../svg/SecondaryLogo/Logo";
 
 const Header = () => {
-    return(
+    return (
         <header className={styles["header"]}>
             <Navbar>
                 <a href="/">
-                    <Logo/>
+                    <Logo />
                 </a>
             </Navbar>
         </header>

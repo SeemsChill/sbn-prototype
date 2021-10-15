@@ -7,10 +7,10 @@ import Section from "../../components/Credential/CredentialSection/Section";
 
 const SignIn = () => {
 
-    return(
+    return (
         <>
-            <Header/>
-            <Section/>
+            <Header />
+            <Section />
         </>
     );
 };

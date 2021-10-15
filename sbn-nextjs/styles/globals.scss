@@ -53,6 +53,10 @@ a:hover {
 .flex {
     display: flex;
 
+    &-d-c {
+        flex-direction: column;
+    }
+
     &-jc-sb {
         justify-content: space-between;
     }
