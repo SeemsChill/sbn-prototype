@@ -10,7 +10,7 @@ import Toggle from "./Toggle/Toggle";
 import header from "./Header.module.scss";
 
 //  Import svg.
-import Logo from "../../svg/Logo";
+import Logo from "../../svg/PrimaryLogo/Logo";
 
 
 const Head = ({ theme, setTheme }) => {
@@ -25,7 +25,7 @@ const Head = ({ theme, setTheme }) => {
                 </a>
 
                 <div className={header["header__button"] + " " + "flex flex-ai-c"}>
-                    <Button mode={theme}>Sign in</Button>
+                    <Button link={"SignIn"} mode={theme}>Sign in</Button>
                 </div>
             </Navbar>
         </header>

@@ -2,11 +2,10 @@
 import React, { useEffect, useState } from "react";
 
 //  Import other components.
-import Head from "../components/Header/Header";
+import Head from "../components/HomeHeader/Header";
 
 export default function Home() {
   const [theme, setTheme] = useState("light");
-  console.log(theme);
 
   return (
     <>

@@ -87,6 +87,11 @@
 
     &__toggle {
         cursor: pointer;
+        transition: all 300ms ease-in-out;
+        
+        &:hover {
+            transform: scale(1.2);
+        }
     }
 }
 

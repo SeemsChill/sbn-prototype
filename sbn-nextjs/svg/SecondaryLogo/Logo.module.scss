@@ -1,0 +1,9 @@
+@import "../../styles/variables";
+
+.svg {
+    transition: transform 300ms ease-in-out;
+
+    &:hover {
+        transform: scale(1.1);
+    }
+}
