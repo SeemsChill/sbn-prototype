@@ -4,8 +4,26 @@ import React, { useEffect, useState } from "react";
 //  Import other components.
 import Head from "../components/HomeHeader/Header";
 
+//  Import fetching method.
+import { verify } from "../utils/query";
+
 export default function Home() {
+  //  States.
+  const [uid, setUid] = useState(null);
+  console.log(uid);
+
   const [theme, setTheme] = useState("light");
+
+  useEffect(async () => {
+    if (localStorage.getItem("Authorization")) {
+      const res = await verify();
+      if (res.uid) {
+        setUid(res.uid);
+      } else {
+        localStorage.removeItem("Authorization");
+      }
+    }
+  }, []);
 
   return (
     <>

@@ -8,7 +8,9 @@ const Container = ({ children }) => {
 
     return(
         <div className={"container container-pall flex flex-jc-c flex-ai-c" + " " + section["section__container__modified"]}>
-            {children}
+            <div className={section['section__container']}>
+                {children}
+            </div>
         </div>
     )
 };
