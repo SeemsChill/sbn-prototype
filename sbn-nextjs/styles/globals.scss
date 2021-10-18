@@ -1,4 +1,5 @@
 // Import modules.
+@import "mixins";
 @import "variables";
 
 // html.
@@ -23,7 +24,7 @@ body {
 
     // Attributes.
     background: $light;
-    font-family: 'Playfair Display', serif;
+    font-family: "Playfair Display", serif;
     font-size: $font-sm;
     font-weight: 300;
     line-height: 1.3;
@@ -67,5 +68,24 @@ a:hover {
 
     &-ai-c {
         align-items: center;
+    }
+}
+
+// Visibility
+.justify-for-mobile {
+    @include breakpoint-down(medium) {
+        justify-content: center;
+    }
+}
+
+.hide-for-mobile {
+    @include breakpoint-down(medium) {
+        display: none;
+    }
+}
+
+.hide-for-desktop {
+    @include breakpoint-up(large) {
+        display: none;
     }
 }

@@ -9,16 +9,15 @@ import { verify } from "../utils/query";
 
 export default function Home() {
   //  States.
-  const [uid, setUid] = useState(null);
-  console.log(uid);
+  const [bundle, setBundle] = useState(null);
 
   const [theme, setTheme] = useState("light");
 
   useEffect(async () => {
     if (localStorage.getItem("Authorization")) {
       const res = await verify();
-      if (res.uid) {
-        setUid(res.uid);
+      if (res.package) {
+        setBundle(res.package[0]);
       } else {
         localStorage.removeItem("Authorization");
       }

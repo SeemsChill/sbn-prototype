@@ -21,7 +21,7 @@ const Toggle = ({ theme, setTheme }) => {
     const icon = theme === "light" ? <BsSun size={30} /> : <BsFillMoonStarsFill size={30} className={header["toggle__dark"]}/>;
 
     return(
-        <div onClick={changeTheme} className={header["header__toggle"]}>
+        <div onClick={changeTheme} className={header["header__toggle"] + " " + "hide-for-mobile"}>
             {icon}
         </div>
     );

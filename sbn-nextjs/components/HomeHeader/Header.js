@@ -13,19 +13,25 @@ import header from "./Header.module.scss";
 import Logo from "../../svg/PrimaryLogo/Logo";
 
 
-const Head = ({ theme, setTheme }) => {
+const Head = ({ bundle, theme, setTheme }) => {
+
+    const head_mode = theme === "light" ? header["header__light"] : header["header__dark"];
 
     return (
-        <header className={header["header"]}>
+        <header className={header["header"] + " " + head_mode}>
             <Navbar mode={theme}>
-                <Toggle theme={theme} setTheme={setTheme} />
-
+                <Toggle theme={theme} setTheme={setTheme}/>
                 <a href="/">
                     <Logo mode={theme} />
                 </a>
-
-                <div className={header["header__button"] + " " + "flex flex-ai-c"}>
-                    <Button link={"SignIn"} mode={theme}>Sign in</Button>
+                <div className={header["header__button"] + " " + "flex flex-ai-c" + " " + "hide-for-mobile"}>
+                    {bundle ? (
+                        <Button link={"SignIn"} mode={theme}>Sign in</Button>
+                    ) : (
+                        <>
+                             <Button link={"SignOut"} mode={theme}>Sign out</Button>
+                        </>
+                    )}
                 </div>
             </Navbar>
         </header>

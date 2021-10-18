@@ -2,7 +2,11 @@
 
 .header {
     background: transparent;
+    position: relative;
 
+    transition: all 400ms ease-in-out;
+    
+    
     &:first-child::before {
         content: "";
         position: absolute;
@@ -17,18 +21,29 @@
     nav {
         padding-top: 1.0625rem;
         padding-bottom: 1.0625rem;
+        
+        background: transparent;
+        transition: all 400ms ease-in-out;
     }
 
     &__nav__light {
-        background: $light;
         box-shadow: 0 4px 2px -2px gray;
     }
 
     &__nav__dark {
-        position: relative;
-        background: linear-gradient(to right, $violet, $ocean);
         box-shadow: 0 4px 2px -2px white;
-        transition: all 0.4s ease-in-out;
+    }
+
+    &__light {
+        background: $light;
+    }
+
+    &__dark {
+        //position: relative;
+        background: #3a6186;
+        background: -webkit-linear-gradient(to right, #3a6186, #89253e);
+        background: linear-gradient(to right, #3a6186, #89253e);
+        //background: linear-gradient(to right, $violet, $ocean);
     }
 
     &__button {

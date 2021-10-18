@@ -1,24 +1,42 @@
 //  Import built-in.
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 //  Import the components.
 import Header from "../../components/Credential/CredentialHeader/Header";
 import Section from "../../components/Credential/CredentialSection/Section";
 
+//  Import fetching method.
+import { verify } from "../../utils/query";
+
 const SignIn = () => {
+    const [display, setDisplay] = useState(false);
 
     const router = useRouter();
 
-    useEffect(() => {
+    useEffect(async () => {
         if (localStorage.getItem("Authorization")) {
-            router.push("/");
+            const res = await verify();
+            if (!res.package) {
+                localStorage.removeItem("Authorization");
+            } else {
+                router.push("/");
+            }
+        } else {
+            setDisplay(true);
         }
     }, []);
 
     return (
         <>
-            <Header />
-            <Section />
+            {display ? (
+                <>
+                    <Header />
+                    <Section />
+                </>
+            ) : (
+                <>
+                </>
+            )}
         </>
     );
 };

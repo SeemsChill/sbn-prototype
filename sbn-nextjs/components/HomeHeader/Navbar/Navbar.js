@@ -9,7 +9,7 @@ const Navbar = ({ children, mode }) => {
     const nav_mode = mode === "light" ? header["header__nav__light"] : header["header__nav__dark"];
 
     return (
-        <nav className={"container container-pall flex flex-jc-sb flex-ai-c" + " " + nav_mode}>
+        <nav className={"container container-pall flex flex-jc-sb flex-ai-c" + " " + "justify-for-mobile" + " " + nav_mode}>
             {children}
         </nav>
     );
