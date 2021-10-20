@@ -13,7 +13,7 @@ import { useForm } from 'react-hook-form';
 //  Import Auth.
 import { sha256 } from "js-sha256";
 //  Import fetching utils.
-import { signIn, signUp } from "../../../utils/query";
+import { signIn, signUp } from "../../../utils/fetcher/query";
 //  Import plugins.
 import { notify } from "../../../utils/plugins/notify";
 import { transSignIn, transSignUp } from '../../../utils/transitions/transition';

@@ -1,6 +1,11 @@
 @import "../../styles/variables";
 
 .svg {
+    position: relative;
+
+    path {
+        fill: $black;
+    }
     transition: transform 300ms ease-in-out;
 
     &__light {
@@ -11,6 +16,7 @@
 
     &__dark {
         path {
+            filter: drop-shadow( 3px 3px 2px rgba(0, 0, 0, .7));
             fill: $light;
         }
     }

@@ -1,0 +1,92 @@
+@import "../variables";
+
+.header {
+    position: relative;
+
+    background-color: $light;
+    transition: all 400ms ease-in-out;
+
+    //  header__dark.
+    &__dark {
+        background-color: $dark;
+        background-image: linear-gradient(315deg, #0cbaba 0%, $dark 74%);
+        box-shadow: 0 4px 2px -2px white;
+    }
+
+    nav {
+        position: relative;
+        padding-top: 0rem;
+        padding-bottom: 0.5rem;
+
+        background: transparent;
+    }
+
+    &__nav__light {
+        box-shadow: 0 4px 2px -2px gray;
+    }
+
+    &__nav__dark {
+        box-shadow: 0 4px 2px -2px $light;
+    }
+}
+
+//  Toggle.
+.toggle {
+    cursor: pointer;
+
+    //  toggle__dark.
+    &__dark {
+        color: $light;
+    }
+}
+
+//  Button.
+.button {
+    position: relative;
+
+    //  a.
+    a {
+        position: relative;
+        display: inline-block;
+        padding: 0 1.1875rem 0.2rem 1.1875rem;
+
+        font-size: $font-lg;
+        font-weight: 400;
+
+        &::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0.09em;
+
+            opacity: 0;
+            transition: opacity 500ms, transform 500ms;
+        }
+
+        &:hover::after,
+        &:focus::after {
+            opacity: 1;
+            transform: translate3d(0, 0.3em, 0);
+        }
+    }
+
+    //  button__light.
+    &__light {
+        color: $black;
+
+        &::after {
+            background-color: $black;
+        }
+    }
+
+    //  button__dark.
+    &__dark {
+        color: $light;
+
+        &::after {
+            background: $light;
+        }
+    }
+}

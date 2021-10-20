@@ -1,32 +1,14 @@
 //  Import built-in.
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 //  Import other components.
-import Head from "../components/HomeHeader/Header";
+import Header from "@/Home/Header/Header";
 
-//  Import fetching method.
-import { verify } from "../utils/query";
 
 export default function Home() {
-  //  States.
-  const [bundle, setBundle] = useState(null);
-
-  const [theme, setTheme] = useState("light");
-
-  useEffect(async () => {
-    if (localStorage.getItem("Authorization")) {
-      const res = await verify();
-      if (res.package) {
-        setBundle(res.package[0]);
-      } else {
-        localStorage.removeItem("Authorization");
-      }
-    }
-  }, []);
-
   return (
     <>
-      <Head theme={theme} setTheme={setTheme} />
+      <Header />
     </>
   )
 }

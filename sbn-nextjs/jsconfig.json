@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            //  Lib (context, ....).
+            "@/lib/*": ["lib/*"],
+
+            //  utils.
+            "@/plugins/*": ["utils/plugins/*"],
+
+            //  Components.
+            "@/Home/*": ["components/Home/*"],
+            "@/SignIn/*": ["components/SignIn/*"],
+
+            //  Home.
+            "@/plugHome/*": ["plugins/Home/*"],
+            "@/PrimaryLogo/*": ["svg/PrimaryLogo/*"],
+            "@/home_styles/*": ["styles/home_styles/*"],
+        
+            //  SignIn.
+            "@/plugSignIn/*": ["plugins/SignIn/*"],
+            "@/SecondaryLogo/*": ["svg/SecondaryLogo/*"],
+            "@/signin_styles/*": ["styles/signin_styles/*"],
+        },
+    },
+    "exclude": ["node_modules"]
+}
