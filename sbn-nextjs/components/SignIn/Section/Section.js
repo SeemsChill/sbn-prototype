@@ -2,12 +2,8 @@
 import React, { useState, useRef } from 'react';
 import { useRouter } from 'next/router';
 //  Import other components.
-import Container from './Container/Container';
-import Span from './Span/Span';
-import Hr from './Hr/Hr';
-import SignIn from './Form/SignIn/SignIn';
-import SignUp from './Form/SignUp/SignUp';
-import Notify from './Notify/Notify';
+import Logo from "svg/IsoLogo/Logo";
+
 //  Import modules.
 import { useForm } from 'react-hook-form';
 //  Import Auth.
@@ -18,10 +14,7 @@ import { signIn, signUp } from "../../../utils/fetcher/query";
 import { notify } from "../../../utils/plugins/notify";
 import { transSignIn, transSignUp } from '../../../utils/transitions/transition';
 //  Import styles.
-import section from './Section.module.scss';
-
-
-
+import styles from '@/signin_styles/Section.module.scss';
 
 
 //  Section component.
@@ -33,6 +26,7 @@ const Section = () => {
   const router = useRouter();
   const { handleSubmit, register } = useForm();
 
+  /*
   //  useRef().
   const hrRef = useRef(null);
   const sgiRef = useRef(null);
@@ -45,7 +39,7 @@ const Section = () => {
   const tsi = transSignIn(signinRef, signupRef, hrRef, sgiRef, sguRef);
   const tsu = transSignUp(signinRef, signupRef, hrRef, sgiRef, sguRef);
 
-  
+
   //  Authentication.
   async function sbnSignIn({ email_signin, password_signin }) {
     const sha256_pass = sha256(`${password_signin}`);
@@ -58,21 +52,32 @@ const Section = () => {
     const res = await signUp(username_signup, email_signup, sha256_pass);
     notify(res, setError, setSuccess, notifyRef, router.push);
   };
+  */
 
   return (
-    <section className={section['section']}>
-      <Container>
-        <div className={"flex flex-d-c"}>
-          <Notify notifyRef={notifyRef} message={success ? { "success": success } : { "error": error }} />
-          <div style={{ width: "25rem" }}>
-            <Span callback={tsi} spanRef={sgiRef}>Sign in</Span>
-            <Span callback={tsu} spanRef={sguRef}>Sign up</Span>
-          </div>
+    <section className={`${styles['section']}`}>
+      <div className={`container ${styles["container"]}`}>
+        <div className={`${styles["iso"]}`}>
+          <Logo/>
         </div>
-        <Hr hrRef={hrRef} />
-        <SignIn callback={sbnSignIn} formRef={signinRef} handleSubmit={handleSubmit} register={register} />
-        <SignUp callback={sbnSignUp} formRef={signupRef} handleSubmit={handleSubmit} register={register} />
-      </Container>
+        <div className={`container--pall flex flex-jc-c ${styles["content"]}`}>
+          
+          <span>Sign In</span>
+          <hr/>
+          <form>
+                <label>Email: </label>
+                <br/>
+                <input type="email" required="required" placeholder="email@mail.com" {...register("email_signin")}/>
+                <br/>
+                <label>Password: </label>
+                <br/>
+                <input type="password" required="required" placeholder="password" {...register("password_signin")}/>
+                <input type="submit" value="Sign in" className={`${styles["submit"]}`}/>
+            </form>
+            <p><a href="/">Forgot password?</a></p>
+            <p>Not have account? <a href="/">Sign up here.</a></p>
+        </div>
+      </div>
     </section>
   );
 };

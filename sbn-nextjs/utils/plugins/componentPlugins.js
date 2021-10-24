@@ -1,14 +1,14 @@
 //  Import utils.
 
 //  Icons.
-import { BsSun, BsFillMoonStarsFill } from "react-icons/bs";
-
+import { BsFillMoonStarsFill } from "react-icons/bs";
+import { FaSun } from "react-icons/fa";
 
 //  togglePlugins: check mode for plugins and return
 //  icon mode.
 const togglePlugins = (mode, style) => {
     return !mode ? (
-        <BsSun size={25} />
+        <FaSun size={25} />
     ) : (
         <BsFillMoonStarsFill size={25} className={`${style}`}/>
     );

@@ -8,7 +8,7 @@ import { useAuth } from "@/lib/sbn-context";
 import Navbar from "@/plugSignIn/Navbar/Navbar";
 import Toggle from "@/plugHome/Toggle/Toggle";
 import ButtonContainer from "@/plugSignIn/ButtonContainer/ButtonContainer";
-import Logo from "@/SecondaryLogo/Logo";
+import Logo from "@/PrimaryLogo/Logo";
 
 //  Impport styles.
 import styles from "@/signin_styles/Header.module.scss";
@@ -29,7 +29,7 @@ const Header = () => {
         <header className={`${styles["header"]} ${modeStyle}`}>
             <Navbar>
                 <Toggle />
-                <Logo />
+                <Logo/>
                 <ButtonContainer/>
             </Navbar>
         </header>

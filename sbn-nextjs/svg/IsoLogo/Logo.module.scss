@@ -1,0 +1,13 @@
+.svg {
+    animation: spirit 1s infinite ease-in-out alternate;
+}
+
+@keyframes spirit {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-5%);
+    }
+}
