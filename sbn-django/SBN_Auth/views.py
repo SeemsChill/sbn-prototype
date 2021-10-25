@@ -12,6 +12,7 @@ from .plugins.auth_plugins import verify_jwt
 # Import other plugins.
 from SBN_User.plugins.response_plugin import handcraft_res
 # Create your views here.
+from SBN_User.models import UserInfo
 
 
 @method_decorator(csrf_exempt, name="dispatch")
@@ -28,6 +29,6 @@ class SBN_Auth_API_GET_Verify_JWT_Token(APIView):
     def get(self, request, format=None):
         try: 
             bundle = verify_jwt(request.headers["Authorization"])
-            return handcraft_res(200, { "uid": bundle["uid"] })
+            return handcraft_res(200, { "package": UserInfo.objects.filter(uid=bundle["uid"]).values("username", "avatar") })
         except Exception as error:
             return handcraft_res(401, error)

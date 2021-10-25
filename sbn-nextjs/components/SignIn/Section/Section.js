@@ -3,9 +3,8 @@ import React, { useState, useRef } from 'react';
 import { useRouter } from 'next/router';
 //  Import other components.
 import Logo from "svg/IsoLogo/Logo";
-
-//  Import modules.
-import { useForm } from 'react-hook-form';
+import Container from '@/plugSignIn/Container/Container';
+import Form from '@/plugSignIn/Form/Form';
 //  Import Auth.
 import { sha256 } from "js-sha256";
 //  Import fetching utils.
@@ -24,7 +23,6 @@ const Section = () => {
   const [error, setError] = useState("");
 
   const router = useRouter();
-  const { handleSubmit, register } = useForm();
 
   /*
   //  useRef().
@@ -57,26 +55,14 @@ const Section = () => {
   return (
     <section className={`${styles['section']}`}>
       <div className={`container ${styles["container"]}`}>
-        <div className={`${styles["iso"]}`}>
-          <Logo/>
-        </div>
-        <div className={`container--pall flex flex-jc-c ${styles["content"]}`}>
-          
-          <span>Sign In</span>
-          <hr/>
-          <form>
-                <label>Email: </label>
-                <br/>
-                <input type="email" required="required" placeholder="email@mail.com" {...register("email_signin")}/>
-                <br/>
-                <label>Password: </label>
-                <br/>
-                <input type="password" required="required" placeholder="password" {...register("password_signin")}/>
-                <input type="submit" value="Sign in" className={`${styles["submit"]}`}/>
-            </form>
-            <p><a href="/">Forgot password?</a></p>
-            <p>Not have account? <a href="/">Sign up here.</a></p>
-        </div>
+        <Logo />
+        <Container>
+          <span>Sign in</span>
+          <hr />
+          <Form/>
+          <p><a href="/">Forgot password?</a></p>
+          <p>Not have account? <a href="/">Sign up here.</a></p>
+        </Container>
       </div>
     </section>
   );

@@ -15,7 +15,10 @@ const ButtonContainer = ({ bundle }) => {
             {
                 !bundle ?
                     (
-                        <Button link={"SignIn"}>Sign in</Button>
+                        <>
+                            <Button link={"SignIn"}>Sign in</Button>
+                            <Button link={"SignUp"}>Sign up</Button>
+                        </> 
                     ) : (
                         <Button link={"SignOut"}>Sign out</Button>
                     )
