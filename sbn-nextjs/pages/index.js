@@ -27,9 +27,7 @@ export default function Home() {
             <input placeholder="email" {...register("email_reg")} />
             <br />
             <label>Password:</label>
-            <input type="password" placeholder="password" {...register("password_reg")} />
-            <br />
-            <input type="submit" value="Sign up" />
+            <input type="password" placeholder="password" {...register("password_reg")} /> <br /> <input type="submit" value="Sign up" />
           </form>
           <br />
           <h1>Log In</h1>
